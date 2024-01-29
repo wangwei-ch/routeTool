@@ -27,8 +27,7 @@ public class HelloApplication extends Application {
         BorderPane root = new BorderPane();
 
         // 创建左侧的二级菜单
-        TreeView<String> treeView = createTreeView();
-        root.setLeft(treeView);
+        root.setLeft(createTreeView());
 
 
         // 创建可观察的数字属性
@@ -37,10 +36,6 @@ public class HelloApplication extends Application {
         IntegerProperty numberProperty3 = new SimpleIntegerProperty(0);
 
 
-        // 创建右侧布局
-        VBox rightPane = new VBox(10); // 垂直布局
-        rightPane.setPadding(new Insets(10));
-        VBox.setVgrow(rightPane, Priority.ALWAYS); // 新增：使rightPane能够伸缩
 
 
         // 右侧上部 - 带图标和文本的标签
@@ -52,10 +47,19 @@ public class HelloApplication extends Application {
         );
         HBox.setHgrow(infoBox, Priority.ALWAYS); // 新增：使infoBox能够伸缩
 
-        // 右侧下部 - 其他内容
-        Label otherContentLabel = new Label("这里是其他内容");
-        rightPane.getChildren().addAll(infoBox, otherContentLabel);
+        VBox outerBox = new VBox(infoBox); // 外部框
+        outerBox.setStyle("-fx-border-color: #bfbfd9; -fx-border-width: 2; -fx-padding: 10px;");
+        outerBox.setAlignment(Pos.CENTER);
+//        VBox.setVgrow(outerBox, Priority.ALWAYS);
+
+
+        // 将外部框添加到右侧布局中
+        VBox rightPane = new VBox(10);
+        rightPane.getChildren().addAll(outerBox, new Label("这里是其他内容"));
+        rightPane.setPadding(new Insets(10));
+        rightPane.setAlignment(Pos.TOP_CENTER);
         root.setCenter(rightPane);
+
 
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
