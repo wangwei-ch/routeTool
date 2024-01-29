@@ -15,8 +15,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -29,14 +31,10 @@ public class HelloApplication extends Application {
         // 创建左侧的二级菜单
         root.setLeft(createTreeView());
 
-
         // 创建可观察的数字属性
         IntegerProperty numberProperty1 = new SimpleIntegerProperty(0);
         IntegerProperty numberProperty2 = new SimpleIntegerProperty(0);
         IntegerProperty numberProperty3 = new SimpleIntegerProperty(0);
-
-
-
 
         // 右侧上部 - 带图标和文本的标签
         HBox infoBox = new HBox(10);
@@ -50,13 +48,14 @@ public class HelloApplication extends Application {
         VBox outerBox = new VBox(infoBox); // 外部框
         outerBox.setStyle("-fx-border-color: #bfbfd9; -fx-border-width: 2; -fx-padding: 10px;");
         outerBox.setAlignment(Pos.CENTER);
-//        VBox.setVgrow(outerBox, Priority.ALWAYS);
 
+        // 右侧下部布局
+        VBox lowerSection = createLowerSection();
 
         // 将外部框添加到右侧布局中
-        VBox rightPane = new VBox(10);
-        rightPane.getChildren().addAll(outerBox, new Label("这里是其他内容"));
+        VBox rightPane = new VBox(10, outerBox, lowerSection);
         rightPane.setPadding(new Insets(10));
+        VBox.setVgrow(lowerSection, Priority.ALWAYS); // 允许垂直增长
         rightPane.setAlignment(Pos.TOP_CENTER);
         root.setCenter(rightPane);
 
@@ -143,6 +142,7 @@ public class HelloApplication extends Application {
 
         //数字居中
         Label numberLabel = new Label();
+        numberLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: blue;");
         numberLabel.textProperty().bind(numberProperty);
         StackPane numberPane = new StackPane(numberLabel);
         numberPane.setAlignment(Pos.CENTER);
@@ -167,6 +167,38 @@ public class HelloApplication extends Application {
         return hbox;
 
     }
+
+    private VBox createLowerSection() {
+        // 左侧部分
+        ProgressBar progressBar = new ProgressBar(0);
+        TextField directoryTextField = new TextField();
+        directoryTextField.setPromptText("选择文件夹路径");
+
+        Button selectDirectoryButton = new Button("选择文件夹");
+        selectDirectoryButton.setOnAction(e -> {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File selectedDirectory = directoryChooser.showDialog(new Stage());
+            if (selectedDirectory != null) {
+                directoryTextField.setText(selectedDirectory.getAbsolutePath());
+            }
+        });
+
+        VBox leftPart = new VBox(10, progressBar, directoryTextField, selectDirectoryButton);
+
+        // 右侧部分 - 内容待定
+        VBox rightTopPart = new VBox(new Label("右上部分内容"));
+        VBox rightBottomPart = new VBox(new Label("右下部分内容"));
+
+        // 整合左侧和右侧部分
+        HBox combinedParts = new HBox(20, leftPart, rightTopPart, rightBottomPart);
+
+        // 将HBox包裹在一个VBox中
+        VBox lowerSection = new VBox(combinedParts);
+        VBox.setVgrow(lowerSection, Priority.ALWAYS);
+
+        return lowerSection;
+    }
+
 
 
     public static void main(String[] args) {
