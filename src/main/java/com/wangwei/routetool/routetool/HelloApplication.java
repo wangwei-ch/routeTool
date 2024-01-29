@@ -125,8 +125,6 @@ public class HelloApplication extends Application {
      */
     private HBox createInfoLabel(StringBinding numberProperty, String iconPath, String text) {
 
-//        label.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(iconPath))));
-
         Image image = new Image(iconPath);
         ImageView imageView = new ImageView(image);
         // 设置图标的显示尺寸
@@ -134,6 +132,10 @@ public class HelloApplication extends Application {
         imageView.setFitHeight(20); // 设置图标的高度
         imageView.setPreserveRatio(true); // 保持图像的纵横比
 
+        // 使用 StackPane 使图标居中
+        StackPane imagePane = new StackPane(imageView);
+        imagePane.setAlignment(Pos.CENTER_RIGHT);
+        imagePane.setMinSize(30, 30); // 设置适当的大小
 
         //数字居中
         Label numberLabel = new Label();
@@ -152,11 +154,9 @@ public class HelloApplication extends Application {
         rightSide.setMaxWidth(150); // 设置最大宽度
         VBox.setVgrow(rightSide, Priority.ALWAYS); // 允许垂直增长
 
-        HBox hbox = new HBox(20, imageView, rightSide);
+        HBox hbox = new HBox(20, imagePane, rightSide);
         hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-padding: 10px;");
-//        hbox.setMinSize(200, 60);    // 设置最小尺寸
-//        hbox.setMaxSize(400, 100);   // 设置最大尺寸
         hbox.setMaxWidth(200);
         HBox.setHgrow(hbox, Priority.ALWAYS); // 允许水平增长
 
