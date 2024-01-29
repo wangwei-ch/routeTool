@@ -1,0 +1,45 @@
+/* 根布局样式 */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+/* 树形视图样式 */
+.tree-view {
+    -fx-background-color: #e8e8e8;
+    -fx-border-color: #b8b8b8;
+    -fx-padding: 10px;
+}
+
+/* 分割面板样式 */
+.split-pane {
+    -fx-background-color: transparent;
+}
+
+/* 文本输入框样式 */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #b8b8b8;
+    -fx-padding: 5px;
+}
+
+/* 文本区域样式 */
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: #b8b8b8;
+    -fx-padding: 5px;
+}
+
+/* 按钮样式 */
+.button {
+    -fx-background-color: #5a9bd4;
+    -fx-text-fill: white;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 12pt;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #3a8bd1;
+}
