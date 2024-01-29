@@ -61,7 +61,7 @@ public class HelloApplication extends Application {
         root.setCenter(rightPane);
 
 
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 1000, 800);
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
         primaryStage.setScene(scene);
@@ -138,7 +138,7 @@ public class HelloApplication extends Application {
 
         // 使用 StackPane 使图标居中
         StackPane imagePane = new StackPane(imageView);
-        imagePane.setAlignment(Pos.CENTER_RIGHT);
+        imagePane.setAlignment(Pos.CENTER);
         imagePane.setMinSize(30, 30); // 设置适当的大小
 
         //数字居中
@@ -159,9 +159,9 @@ public class HelloApplication extends Application {
         VBox.setVgrow(rightSide, Priority.ALWAYS); // 允许垂直增长
 
         HBox hbox = new HBox(20, imagePane, rightSide);
-        hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-padding: 10px;");
-        hbox.setMaxWidth(200);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setStyle("-fx-border-color: #bfbfd9; -fx-border-width: 1; -fx-padding: 10px;");
+        hbox.setMaxWidth(500);
         HBox.setHgrow(hbox, Priority.ALWAYS); // 允许水平增长
 
         return hbox;
